@@ -72,6 +72,7 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
+    implementation(libs.compose.material.icons)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
