@@ -80,7 +80,7 @@ fun ProductDetailScreen(
                 Text(
                     p.name,
                     color = SushiColors.PrimaryText,
-                    fontSize = 22.sp,
+                    fontSize = 17.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Text("${p.weightGrams}г", color = SushiColors.SecondaryText, fontSize = 14.sp)
@@ -120,7 +120,7 @@ fun ProductDetailScreen(
                     Text(
                         "$qty",
                         color = SushiColors.PrimaryText,
-                        fontSize = 18.sp,
+                        fontSize = 14.sp,
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
                             .testTag("qty_label")

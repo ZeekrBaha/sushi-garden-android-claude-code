@@ -76,7 +76,8 @@ fun ProfileScreen(
                     Text(
                         user?.name?.firstOrNull()?.toString() ?: "?",
                         color = SushiColors.PrimaryText,
-                        fontSize = 24.sp
+                        fontSize = 19.sp,
+                        fontWeight = FontWeight.Bold
                     )
                 }
                 Spacer(Modifier.width(Spacing.md))

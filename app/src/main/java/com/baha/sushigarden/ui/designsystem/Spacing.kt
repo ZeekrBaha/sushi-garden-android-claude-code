@@ -8,5 +8,5 @@ object Spacing {
     val md  = 16.dp
     val lg  = 24.dp
     val xl  = 32.dp
-    val cardCorner = 12.4.dp
+    val cardCorner = 12.dp
 }

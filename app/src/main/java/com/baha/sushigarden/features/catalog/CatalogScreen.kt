@@ -84,7 +84,8 @@ fun CatalogScreen(
                             cat.name,
                             color = SushiColors.PrimaryText,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                            fontSize = 14.sp
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
                         )
                     }
                 }
@@ -137,14 +138,14 @@ private fun ProductCard(product: Product, onClick: () -> Unit) {
                 Text(
                     product.name,
                     color = SushiColors.PrimaryText,
-                    fontSize = 14.sp,
+                    fontSize = 17.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Text("${product.weightGrams}г", color = SushiColors.SecondaryText, fontSize = 12.sp)
                 Text(
                     "${product.price}₽",
                     color = SushiColors.AccentRed,
-                    fontSize = 16.sp,
+                    fontSize = 19.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
