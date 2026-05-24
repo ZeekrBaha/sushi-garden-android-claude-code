@@ -14,6 +14,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+
+
 @HiltAndroidTest
 class CartScreenTest {
 
@@ -63,5 +65,48 @@ class CartScreenTest {
         composeRule.onNodeWithTag("cart_increment_p1").performClick()
         composeRule.onNodeWithTag("cart_qty_p1").assertTextEquals("2")
         composeRule.captureAndSaveScreenshot("cart_qty_incremented")
+    }
+
+    @Test
+    fun cartItemQtyDecrement() {
+        composeRule.onNodeWithTag("product_p1").performClick()
+        composeRule.waitForIdle()
+        composeRule.onNodeWithTag("btn_add_to_cart").performClick()
+        composeRule.waitForIdle()
+        navigateToCart()
+        composeRule.onNodeWithTag("cart_increment_p1").performClick()
+        composeRule.waitForIdle()
+        composeRule.onNodeWithTag("cart_qty_p1").assertTextEquals("2")
+        composeRule.onNodeWithTag("cart_decrement_p1").performClick()
+        composeRule.waitForIdle()
+        composeRule.onNodeWithTag("cart_qty_p1").assertTextEquals("1")
+        composeRule.captureAndSaveScreenshot("cart_qty_decremented")
+    }
+
+    @Test
+    fun cartItemRemovedOnDecrementToZero() {
+        composeRule.onNodeWithTag("product_p1").performClick()
+        composeRule.waitForIdle()
+        composeRule.onNodeWithTag("btn_add_to_cart").performClick()
+        composeRule.waitForIdle()
+        navigateToCart()
+        composeRule.onNodeWithTag("cart_item_p1").assertIsDisplayed()
+        composeRule.onNodeWithTag("cart_decrement_p1").performClick()
+        composeRule.waitForIdle()
+        composeRule.onNodeWithTag("cart_empty").assertIsDisplayed()
+        composeRule.captureAndSaveScreenshot("cart_item_removed")
+    }
+
+    @Test
+    fun checkoutButton_navigatesToCheckout() {
+        composeRule.onNodeWithTag("product_p1").performClick()
+        composeRule.waitForIdle()
+        composeRule.onNodeWithTag("btn_add_to_cart").performClick()
+        composeRule.waitForIdle()
+        navigateToCart()
+        composeRule.onNodeWithTag("btn_checkout").performClick()
+        composeRule.waitForIdle()
+        composeRule.onNodeWithTag("field_street").assertIsDisplayed()
+        composeRule.captureAndSaveScreenshot("cart_to_checkout")
     }
 }
