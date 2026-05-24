@@ -7,12 +7,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.navigation.NavController
 import com.baha.sushigarden.ui.designsystem.SushiColors
 
 @Composable
 fun TrackingScreen(navController: NavController) {
-    Box(Modifier.fillMaxSize().background(SushiColors.Background), contentAlignment = Alignment.Center) {
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(SushiColors.Background)
+            .testTag("tracking_map"),
+        contentAlignment = Alignment.Center
+    ) {
         Text("Отслеживание — скоро", color = SushiColors.PrimaryText)
     }
 }
