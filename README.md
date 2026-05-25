@@ -167,7 +167,7 @@ DesignSystemTest                 CartScreenTest       (6 tests)
                                      captureAndSaveScreenshot() per test
 ```
 
-All **37 UI tests** pass + **4 unit test classes**.  
+**36 JVM unit tests** pass (4 test classes + `InMemoryCartServiceTest`, `CheckoutViewModelTest`, `CourierSimulatorTest`). **37 UI / instrumented tests** verified on Pixel 8 emulator (API 36).  
 Every UI test calls `captureAndSaveScreenshot()` — PNGs saved to  
 `/storage/emulated/0/Android/data/com.baha.sushigarden/files/screenshots/`.
 
