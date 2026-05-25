@@ -70,6 +70,7 @@ fun AuthScreen(
     val consent  by viewModel.consent.collectAsState()
     val showPw   by viewModel.showPassword.collectAsState()
     val canReg   by viewModel.canRegister.collectAsState()
+    val canLogin by viewModel.canLogin.collectAsState()
 
     LaunchedEffect(uiState) {
         if (uiState is UiState.Success) onAuthSuccess()
@@ -198,7 +199,7 @@ fun AuthScreen(
 
             Button(
                 onClick = { if (isRegister) viewModel.register() else viewModel.login() },
-                enabled = if (isRegister) canReg else email.contains("@") && password.isNotBlank(),
+                enabled = if (isRegister) canReg else canLogin,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)

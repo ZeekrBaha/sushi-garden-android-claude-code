@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -32,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.baha.sushigarden.R
 import com.baha.sushigarden.UiState
 import com.baha.sushigarden.data.models.Product
 import com.baha.sushigarden.navigation.Screen
@@ -94,6 +97,10 @@ fun CatalogScreen(
 
         Spacer(Modifier.height(Spacing.md))
 
+        PromoBannerStrip()
+
+        Spacer(Modifier.height(Spacing.md))
+
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(Spacing.md),
@@ -106,6 +113,32 @@ fun CatalogScreen(
                     navController.navigate(Screen.ProductDetail.createRoute(product.id))
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun PromoBannerStrip() {
+    val banners = listOf(R.drawable.banner_promo_1, R.drawable.banner_promo_2)
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
+        contentPadding = PaddingValues(horizontal = Spacing.md),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(132.dp)
+            .testTag("catalog_banners")
+    ) {
+        items(banners.size) { index ->
+            AsyncImage(
+                model = banners[index],
+                contentDescription = "Промо ${index + 1}",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .width(296.dp)
+                    .height(132.dp)
+                    .clip(RoundedCornerShape(Spacing.cardCorner))
+                    .testTag("catalog_banner_$index")
+            )
         }
     }
 }

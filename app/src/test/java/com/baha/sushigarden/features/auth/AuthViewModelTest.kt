@@ -47,7 +47,15 @@ class AuthViewModelTest {
 
     @Test fun register_requiresValidEmail() = runTest(dispatcher) {
         vm.onNameChange("Иван")
-        vm.onEmailChange("notanemail")
+        vm.onEmailChange("ivan@localhost")
+        vm.onPasswordChange("Password1!")
+        vm.onConsentChange(true)
+        assertFalse(vm.canRegister.value)
+    }
+
+    @Test fun register_rejectsEmailWithoutDomain() = runTest(dispatcher) {
+        vm.onNameChange("Иван")
+        vm.onEmailChange("ivan@")
         vm.onPasswordChange("Password1!")
         vm.onConsentChange(true)
         assertFalse(vm.canRegister.value)
@@ -66,6 +74,12 @@ class AuthViewModelTest {
         vm.onPasswordChange("password")
         vm.login()
         assertTrue(vm.uiState.value is UiState.Success)
+    }
+
+    @Test fun login_requiresValidEmail() = runTest(dispatcher) {
+        vm.onEmailChange("test@localhost")
+        vm.onPasswordChange("password")
+        assertFalse(vm.canLogin.value)
     }
 
     @Test fun togglePassword_flipsVisibility() = runTest(dispatcher) {

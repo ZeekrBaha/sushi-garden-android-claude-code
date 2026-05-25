@@ -31,7 +31,11 @@ class AuthViewModel @Inject constructor(private val authService: AuthService) : 
     val showPassword = MutableStateFlow(false)
 
     val canRegister: StateFlow<Boolean> = combine(name, email, password, consent) { n, e, p, c ->
-        n.isNotBlank() && e.contains("@") && p.length >= 6 && c
+        n.isNotBlank() && AuthValidator.isValidEmail(e) && AuthValidator.isValidPassword(p) && c
+    }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
+    val canLogin: StateFlow<Boolean> = combine(email, password) { e, p ->
+        AuthValidator.isValidEmail(e) && p.isNotBlank()
     }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
     fun onNameChange(v: String)     { name.value = v }
