@@ -5,8 +5,6 @@ import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performTextClearance
-import androidx.compose.ui.test.performTextInput
 import com.baha.sushigarden.MainActivity
 import com.baha.sushigarden.captureAndSaveScreenshot
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -39,11 +37,9 @@ class ProfileScreenTest {
     }
 
     @Test
-    fun phoneFieldEditable() {
-        composeRule.onNodeWithTag("profile_phone").performTextClearance()
-        composeRule.onNodeWithTag("profile_phone").performTextInput("+7 999 999-99-99")
-        composeRule.onNodeWithTag("profile_phone").assertTextContains("+7 999 999-99-99")
-        composeRule.captureAndSaveScreenshot("profile_phone_edited")
+    fun phoneVisibleWhenProvidedByProfile() {
+        composeRule.onNodeWithTag("profile_phone").assertTextContains("+7 900 123-45-67")
+        composeRule.captureAndSaveScreenshot("profile_phone")
     }
 
     @Test
