@@ -141,13 +141,13 @@ App launch
 | Token | Value |
 |-------|-------|
 | Background | `#0F0F11` |
-| Card surface | `#292830` |
+| Card surface | `#29282C` |
 | Tab bar | `#161616` |
 | Accent red | `#EC1A35` |
 | Primary text | `#FFFFFF` |
 | Secondary text | `#6C6C74` |
 | Icon inactive | `#4C4C4C` |
-| Card corner radius | `12.4dp` |
+| Card corner radius | `12dp` |
 | Font — primary | Sen Regular / Sen Bold (bundled) |
 | Font — stepper | Mugesta (user-supplied) |
 

@@ -31,12 +31,16 @@ class CourierSimulator(private val dispatcher: CoroutineDispatcher = Dispatchers
     private var job: Job? = null
 
     fun start() {
+        if (job?.isActive == true) return  // guard: ignore duplicate start() calls
+        _position.value   = route.first()
+        _progress.value   = 0f
+        _etaMinutes.value = 30
         job = CoroutineScope(dispatcher).launch {
             val totalSteps = route.size - 1
             for (i in 0 until totalSteps) {
                 delay(3_000)
-                _position.value = route[i + 1]
-                _progress.value = (i + 1).toFloat() / totalSteps
+                _position.value   = route[i + 1]
+                _progress.value   = (i + 1).toFloat() / totalSteps
                 _etaMinutes.value = (30 * (1f - _progress.value)).toInt().coerceAtLeast(1)
             }
         }

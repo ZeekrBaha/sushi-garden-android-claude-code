@@ -12,13 +12,14 @@ class InMemoryCartService : CartService {
     private val _state = MutableStateFlow(CartState())
     override val cartState: StateFlow<CartState> = _state.asStateFlow()
 
-    override fun addItem(product: Product, addOns: List<AddOn>) {
+    override fun addItem(product: Product, addOns: List<AddOn>, quantity: Int) {
+        val key = lineKey(product.id, addOns)
         val items = _state.value.items.toMutableList()
-        val idx = items.indexOfFirst { it.product.id == product.id }
+        val idx = items.indexOfFirst { lineKey(it.product.id, it.selectedAddOns) == key }
         if (idx >= 0) {
-            items[idx] = items[idx].copy(quantity = items[idx].quantity + 1)
+            items[idx] = items[idx].copy(quantity = items[idx].quantity + quantity)
         } else {
-            items.add(CartItem(product, 1, addOns))
+            items.add(CartItem(product, quantity, addOns))
         }
         _state.value = CartState(items)
     }
@@ -37,4 +38,7 @@ class InMemoryCartService : CartService {
     override fun clearCart() {
         _state.value = CartState()
     }
+
+    private fun lineKey(productId: String, addOns: List<AddOn>): String =
+        "$productId:${addOns.map { it.id }.sorted().joinToString(",")}"
 }

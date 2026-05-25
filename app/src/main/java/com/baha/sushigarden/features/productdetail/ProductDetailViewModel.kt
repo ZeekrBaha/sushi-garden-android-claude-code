@@ -39,6 +39,6 @@ class ProductDetailViewModel @Inject constructor(
     fun addToCart() {
         val p = _product.value ?: return
         val addOns = p.availableAddOns.filter { _selectedAddOns.value.contains(it.id) }
-        repeat(_quantity.value) { cartService.addItem(p, addOns) }
+        cartService.addItem(p, addOns, _quantity.value)
     }
 }

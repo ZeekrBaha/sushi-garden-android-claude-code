@@ -16,8 +16,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,11 +42,6 @@ fun ProfileScreen(
 ) {
     val user by viewModel.user.collectAsState()
     val orders by viewModel.orders.collectAsState()
-    val phone by viewModel.phone.collectAsState()
-
-    LaunchedEffect(user?.phone) {
-        user?.phone?.let { if (it.isNotEmpty()) viewModel.phone.value = it }
-    }
 
     LaunchedEffect(user) {
         if (user == null) {
@@ -96,23 +89,15 @@ fun ProfileScreen(
                 }
             }
             Spacer(Modifier.height(Spacing.md))
-            OutlinedTextField(
-                value = phone,
-                onValueChange = viewModel::onPhoneChange,
-                label = { Text("Телефон") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .testTag("profile_phone"),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedTextColor = SushiColors.PrimaryText,
-                    unfocusedTextColor = SushiColors.PrimaryText,
-                    focusedBorderColor = SushiColors.AccentRed,
-                    unfocusedBorderColor = SushiColors.SecondaryText,
-                    focusedLabelColor = SushiColors.AccentRed,
-                    unfocusedLabelColor = SushiColors.SecondaryText
+            val phone = user?.phone.orEmpty()
+            if (phone.isNotEmpty()) {
+                Text(
+                    phone,
+                    color = SushiColors.SecondaryText,
+                    modifier = Modifier.testTag("profile_phone")
                 )
-            )
-            Spacer(Modifier.height(Spacing.md))
+                Spacer(Modifier.height(Spacing.md))
+            }
             Text(
                 "Мои заказы",
                 color = SushiColors.PrimaryText,

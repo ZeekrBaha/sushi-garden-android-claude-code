@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface CartService {
     val cartState: StateFlow<CartState>
-    fun addItem(product: Product, addOns: List<AddOn> = emptyList())
+    fun addItem(product: Product, addOns: List<AddOn> = emptyList(), quantity: Int = 1)
     fun removeItem(productId: String)
     fun clearCart()
 }

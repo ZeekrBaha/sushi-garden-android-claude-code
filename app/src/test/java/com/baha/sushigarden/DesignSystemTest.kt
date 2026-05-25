@@ -13,6 +13,6 @@ class DesignSystemTest {
         assertEquals(Color(0xFFEC1A35), SushiColors.AccentRed)
     }
     @Test fun cardSurfaceToken() {
-        assertEquals(Color(0xFF292830), SushiColors.CardSurface)
+        assertEquals(Color(0xFF29282C), SushiColors.CardSurface)
     }
 }

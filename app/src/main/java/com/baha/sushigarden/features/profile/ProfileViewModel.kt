@@ -29,9 +29,5 @@ class ProfileViewModel @Inject constructor(
         .map { it.map { e -> e.toOrder() } }
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-    val phone = MutableStateFlow("")
-
-    fun onPhoneChange(v: String) { phone.value = v }
-
     fun logout() = viewModelScope.launch { authService.signOut() }
 }

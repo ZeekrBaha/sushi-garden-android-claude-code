@@ -11,9 +11,10 @@ import javax.inject.Inject
 class CartViewModel @Inject constructor(private val cartService: CartService) : ViewModel() {
     val cartState: StateFlow<CartState> = cartService.cartState
 
-    fun increment(productId: String) = cartService.addItem(
-        cartState.value.items.first { it.product.id == productId }.product
-    )
+    fun increment(productId: String) {
+        val item = cartState.value.items.firstOrNull { it.product.id == productId } ?: return
+        cartService.addItem(item.product, item.selectedAddOns)
+    }
 
     fun decrement(productId: String) = cartService.removeItem(productId)
 }

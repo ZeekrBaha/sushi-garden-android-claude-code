@@ -45,6 +45,7 @@ fun CheckoutScreen(
 ) {
     val cartState by viewModel.cartState.collectAsState()
     val orderState by viewModel.orderState.collectAsState()
+    val canConfirm by viewModel.canConfirm.collectAsState()
     val street by viewModel.street.collectAsState()
     val recipient by viewModel.recipient.collectAsState()
     val phone by viewModel.phone.collectAsState()
@@ -98,14 +99,26 @@ fun CheckoutScreen(
         )
         summaryRow("Итого", "${cartState.total}₽", bold = true)
 
+        if (orderState is UiState.Error) {
+            Text(
+                (orderState as UiState.Error).message,
+                color = SushiColors.AccentRed,
+                modifier = Modifier.padding(bottom = Spacing.sm).testTag("checkout_error")
+            )
+        }
+
         Spacer(Modifier.height(Spacing.lg))
         Button(
             onClick = viewModel::confirm,
+            enabled = canConfirm,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(52.dp)
                 .testTag("btn_confirm"),
-            colors = ButtonDefaults.buttonColors(containerColor = SushiColors.AccentRed)
+            colors = ButtonDefaults.buttonColors(
+                containerColor = SushiColors.AccentRed,
+                disabledContainerColor = SushiColors.AccentRed.copy(alpha = 0.4f)
+            )
         ) {
             if (orderState is UiState.Loading) {
                 CircularProgressIndicator(
